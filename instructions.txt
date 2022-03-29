@@ -1,0 +1,9 @@
+
+Instal Kivy:
+python3 -m pip install "kivy[full]" kivy_examples
+
+Create Virtual Environment:
+python3 -m virtualenv smaster
+
+Activate Environment: source smaster/bin/activate
+Deactivate Environment: deactivate
