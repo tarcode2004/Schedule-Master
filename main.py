@@ -1,3 +1,5 @@
+#Luis Puga, Tarik Metin, 
+
 from kivymd.app import MDApp
 import azure.cognitiveservices.speech as speech_sdk
 from dotenv import load_dotenv
