@@ -29,6 +29,11 @@ ScreenManager:
                 id: the_label
             
             MDRaisedButton:
+                text: "AI Stuff"
+                on_release:
+                    app.luis()
+
+            MDRaisedButton:
                 text: "Log out"
                 on_release:
                     app.sign_out()
