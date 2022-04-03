@@ -1,0 +1,99 @@
+#:import FirebaseLoginScreen firebaseloginscreen.firebaseloginscreen
+
+ScreenManager:
+    id: screen_manager
+    FirebaseLoginScreen:
+        id: firebase_login_screen
+        name: "firebase_login_screen"
+        debug: True
+        remember_user: True
+        require_email_verification: True
+        web_api_key: "AIzaSyCVAZHLsIkT62IyXIQ0p6JMDioZ5-NPVrQ" # This should be YOUR web_api_key
+        background: "background.jpg"
+        on_login_success:
+            if self.login_state == 'in': print("User has logged in. Unique identifier is ", self.localId)
+            if self.login_state == 'out': print("User signed out")
+
+            if self.login_state == 'in': app.local_id = self.localId
+            if self.login_state == 'in': app.user_idToken = self.idToken
+            if self.login_state == 'in': app.display_user_tokens()
+            if self.login_state == 'in': screen_manager.current = 'Home'
+
+
+    #This sceen is only necessary for testing purposes only
+    Screen:
+        id: example_screen
+        name: "example_screen"
+        BoxLayout:
+            MDLabel:
+                id: the_label
+            MDRaisedButton:
+                text: "Log out"
+                on_release:
+                    app.sign_out()
+        
+    MDScreen:
+        name: "Home"
+        
+        #This component is the menu at the bottom of the screen
+        MDBottomNavigation:
+            text_color_active: 0, 0, 0, 1
+            MDBottomNavigationItem:
+                name: 'screen 1'
+                icon: 'chart-tree'
+                #badge_icon: "numeric-10"
+            MDBottomNavigationItem:
+                name: 'screen 1'
+                icon: 'poll'
+                #This line of code will change the notification number
+                badge_icon: "numeric-10"      
+
+            MDBottomNavigationItem:
+                name: 'screen 2'
+                icon: 'bell'
+                #This line of code will change the notification number
+                badge_icon: "numeric-3"
+
+            MDBottomNavigationItem:
+                name: 'screen 3' 
+                icon: 'cog'
+                MDLabel:
+                    text: "Settings"
+                    font_style: "H5"
+                    halign: "center"
+                    pos_hint: {"center_y":.95, "center_x": .17}
+                MDList:
+                    pos_hint: {"center_y":.62, }
+                    OneLineIconListItem:
+                        text: "Account"
+                        IconLeftWidget:
+                            icon: "account"
+                        
+                    OneLineIconListItem:
+                        text: "Notifications"
+                        IconLeftWidget:
+                            icon: "bell"
+                    OneLineIconListItem:
+                        text: "Appearance"
+                        IconLeftWidget:
+                            icon: "eye"
+                    OneLineIconListItem:
+                        text: "Privacy & Security"
+                        IconLeftWidget:
+                            icon: "lock"
+                    OneLineIconListItem:
+                        text: "Sound"
+                        IconLeftWidget:
+                            icon: "volume-high"
+                    OneLineIconListItem:
+                        text: "Language"
+                        IconLeftWidget:
+                            icon: "earth"
+                    OneLineIconListItem:
+                        text: "Sign Out"
+                        on_release:
+                            app.sign_out()
+                        IconLeftWidget:
+                            icon: "logout"
+  
+           
