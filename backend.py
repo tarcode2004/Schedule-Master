@@ -1,4 +1,5 @@
 import uuid
+import json
 import requests
 import datetime
 from enum import Enum
@@ -10,7 +11,7 @@ class ContactStatus(Enum):
 
 class Contact:
     ID = ""
-    Status = ContactStatus()
+    Status = ContactStatus(0)
 
 class Connection:
     InstantiatorID = ""
@@ -124,3 +125,9 @@ class User:
             Health = Goal("Be Healthy", None)
             self.GoalList.append(Health)
         
+    def getContacts(self, local_id):
+        result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/Connections.json")
+        data = json.loads(result.content.decode())
+        print(result.ok)
+        print(data['Christian and Luis']['IID'])
+        #print("DATA IS", data) 
