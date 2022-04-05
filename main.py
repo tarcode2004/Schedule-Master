@@ -1,6 +1,8 @@
 from kivymd.app import MDApp
 # Resize the window
 from kivy.core.window import Window
+from backend import *
+
 Window.size = (350, 600)
 class MainApp(MDApp):
     user_idToken = ""
@@ -12,7 +14,8 @@ class MainApp(MDApp):
     def sign_out(self):
         self.root.ids.firebase_login_screen.log_out()
         self.root.current = 'firebase_login_screen'
-        
+
+                 
         
 
 MainApp().run()
