@@ -1,13 +1,35 @@
-import azure.cognitiveservices.speech as speech_sdk
+import azure.cognitiveservices.speech as speechsdk
 from dotenv import load_dotenv
 import os
+import time
 import json
 from datetime import datetime, timedelta, date
 from dateutil.parser import parse as is_date
 
 #Speech to text
-def STT(self):
-    pass
+def STT():
+    load_dotenv()
+    speech_config = speechsdk.SpeechConfig(subscription=os.getenv('LU_PREDICTION_REGION'), region=os.getenv('LU_PREDICTION_REGION'))
+    speech_config.speech_recognition_language="en-US"
+
+    #To recognize speech from an audio file, use `filename` instead of `use_default_microphone`:
+    #audio_config = speechsdk.audio.AudioConfig(filename="YourAudioFile.wav")
+    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+
+    print("Speak into your microphone.")
+    speech_recognition_result = speech_recognizer.recognize_once_async().get()
+
+    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        print("Recognized: {}".format(speech_recognition_result.text))
+    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+        print("No speech could be recognized: {}".format(speech_recognition_result.no_match_details))
+    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_recognition_result.cancellation_details
+        print("Speech Recognition canceled: {}".format(cancellation_details.reason))
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            print("Error details: {}".format(cancellation_details.error_details))
+            print("Did you set the speech resource key and region values?")
 
 #text to speech
 def TTS(self):
@@ -22,7 +44,7 @@ def NCU(self):
     pass
 
 
-def default(self):
+def default():
     try:
         # Get Configuration Settings
         load_dotenv()
@@ -32,13 +54,13 @@ def default(self):
 
         # Configure speech service and get intent recognizer
         # Configure speech service and get intent recognizer
-        speech_config = speech_sdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
-        audio_config = speech_sdk.AudioConfig(use_default_microphone=True)
-        recognizer = speech_sdk.intent.IntentRecognizer(speech_config, audio_config)
+        speech_config = speechsdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
+        audio_config = speechsdk.AudioConfig(use_default_microphone=True)
+        recognizer = speechsdk.intent.IntentRecognizer(speech_config, audio_config)
 
         # Get the model from the AppID and add the intents we want to use
         # Get the model from the AppID and add the intents we want to use
-        model = speech_sdk.intent.LanguageUnderstandingModel(app_id=lu_app_id)
+        model = speechsdk.intent.LanguageUnderstandingModel(app_id=lu_app_id)
         intents = [
             (model, "GetTime"),
             (model, "GetDate"),
@@ -51,23 +73,23 @@ def default(self):
         # Process speech input
         intent = ''
         result = recognizer.recognize_once_async().get()
-        if result.reason == speech_sdk.ResultReason.RecognizedIntent:
+        if result.reason == speechsdk.ResultReason.RecognizedIntent:
             intent = result.intent_id
             print("Query: {}".format(result.text))
             print("Intent: {}".format(intent))
             json_response = json.loads(result.intent_json)
             print("JSON Response:\n{}\n".format(json.dumps(json_response, indent=2)))
-        elif result.reason == speech_sdk.ResultReason.RecognizedSpeech:
+        elif result.reason == speechsdk.ResultReason.RecognizedSpeech:
             # Speech was recognized, but no intent was identified.
             intent = result.text
             print("I don't know what {} means.".format(intent))
-        elif result.reason == speech_sdk.ResultReason.NoMatch:
+        elif result.reason == speechsdk.ResultReason.NoMatch:
             # Speech wasn't recognized
             print("Sorry. I didn't understand that.")
-        elif result.reason == speech_sdk.ResultReason.Canceled:
+        elif result.reason == speechsdk.ResultReason.Canceled:
             # Something went wrong
             print("Intent recognition canceled: {}".format(result.cancellation_details.reason))
-            if result.cancellation_details.reason == speech_sdk.CancellationReason.Error:
+            if result.cancellation_details.reason == speechsdk.CancellationReason.Error:
                 print("Error details: {}".format(result.cancellation_details.error_details))
             # Get the first entity (if any)
         # Get the first entity (if any)
