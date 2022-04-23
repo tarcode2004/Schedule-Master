@@ -14,8 +14,8 @@ class MainApp(MDApp):
         Tarik = User(False, False, True, True)# Create User
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
         #Tarik.getContacts(self.local_id)
-        word = azureservies.STT()
-        azureservies.TTS(word)
+        #word = azureservies.STT()
+        print(azureservies.TSU())
 
 
     def sign_out(self):
