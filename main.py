@@ -14,7 +14,7 @@ class MainApp(MDApp):
         Tarik = User(False, False, True, True)# Create User
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
         Tarik.getContacts(self.local_id)
-        azureservies.default()
+        print(azureservies.STT())
 
     def sign_out(self):
         self.root.ids.firebase_login_screen.log_out()
