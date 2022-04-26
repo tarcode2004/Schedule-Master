@@ -1,0 +1,40 @@
+<WelcomeScreen>:
+    FloatLayout:
+        MDLabel:
+            text: "Welcome to"
+            font_style: "H5"
+            halign: "center"
+            pos_hint: {"center_y":.95}
+        MDLabel: 
+            text: "Self Care"
+            font_style: "H3"
+            halign: "center"
+            pos_hint: {"center_y":.89}
+        Image:
+            source: "welcome.png"
+            allow_stretch: True
+            size_hint: .85, .85
+            pos_hint: {"center_y":.5, "center_x":.5}
+            
+            
+         
+        MDRaisedButton:
+            id: log_in_button
+            size_hint: .9, .05
+            pos_hint: {"top": .175, "center_x": .5}
+            md_bg_color:.67, .44, .29, 1
+            text: "Sign In"
+            
+            on_release:
+                root.parent.current = "sign_in_screen"
+
+        MDRaisedButton:
+            id: create_account_button
+            size_hint: .9, .05
+            pos_hint: {"top": .100, "center_x": .5}
+            text: "Create Account"
+            md_bg_color:.67, .44, .29, 1
+            on_release:
+                root.parent.current = "sign_up_screen"
+
+

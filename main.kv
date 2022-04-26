@@ -31,22 +31,154 @@ ScreenManager:
                 text: "Log out"
                 on_release:
                     app.sign_out()
-        
+
     MDScreen:
         name: "Home"
-        
         #This component is the menu at the bottom of the screen
         MDBottomNavigation:
-            text_color_active: 0, 0, 0, 1
+            text_color_active: 0.6, 0.3, 0.9, 1
             MDBottomNavigationItem:
                 name: 'screen 1'
                 icon: 'chart-tree'
                 #badge_icon: "numeric-10"
+                on_tab_press: root.current = "Home"
+                MDBoxLayout:
+                    md_bg_color: 1,1,1,1
+                    orientation: 'vertical'
+                    spacing: 20
+                    padding: 20
+                    MDCard:
+                        orientation: 'horizontal'
+                        size_hint: None, None
+                        size: "260dp", "50dp"
+                        pos_hint: {"center_x":0.5}
+                        MDLabel:
+                            text: "Let's Set Some Goals!"
+                            font_name: 'Calibri'
+                            theme_text_color: 'Custom'
+                            text_color: 0.6, 0.3, 0.9, 1
+                            font_size: '25sp'
+                            font_style: "H5"
+                            multiline: False
+
+                        IconLeftWidget:
+                            icon: 'account'
+                            icon_color: 0.6, 0.3, 0.9, 1
+
+                    MDCard:
+                        orientation: 'horizontal'
+                        halign: 'left'
+                        md_bg_color: 0.9,0.9, 0.95, 1
+                        size_hint: None, None
+                        size: "270dp", "100dp"
+                        MDRectangleFlatButton:
+                            text: "Goals"
+                            font_style: "H5"
+                            font_size: 35
+                            halign: 'left'
+                            size_hint: 1,1
+                            line_color: 0.9,0.9,0.9,0.9
+                            md_bg_color: 0.9,0.9, 0.95, 1
+                            text_color: 0.6, 0.3, 0.9, 1
+                            on_release: root.current = 'goals'
+                        MDIconButton:
+                            icon: 'flag-checkered'
+                            icon_color: 0.6, 0.3, 0.9, 0.9
+                            theme_icon_color: 'Custom'
+                            user_font_size: "70dp"
+                            pos_hint: { 'center_y': 0.5}
+                            valign: 'center'
+                            halign: "left"
+                            on_release: root.current = 'goals'
+
+
+                    MDCard:
+                        orientation: 'horizontal'
+                        halign: 'left'
+                        md_bg_color: 0.9,0.9, 0.95, 1
+                        size_hint: None, None
+                        size: "270dp", "100dp"
+                        MDRectangleFlatButton:
+                            text: "Tasks"
+                            font_style: "H5"
+                            font_size: 35
+                            halign: 'left'
+                            size_hint: 1,1
+                            line_color: 0.9,0.9,0.9,0.9
+                            md_bg_color: 0.9,0.9, 0.95, 1
+                            text_color: 0.6, 0.3, 0.9, 1
+                            on_release: root.current= 'tasks'
+                        MDIconButton:
+                            icon: 'calendar-check'
+                            icon_color: 0.6, 0.3, 0.9, 0.9
+                            theme_icon_color: 'Custom'
+                            user_font_size: "70dp"
+                            pos_hint: { 'center_y': 0.5}
+                            valign: 'center'
+                            halign: "left"
+                            on_release: root.current = 'tasks'
+
+                    MDCard:
+                        orientation: 'horizontal'
+                        halign: 'left'
+                        md_bg_color: 0.9,0.9, 0.95, 1
+                        size_hint: None, None
+                        size: "270dp", "100dp"
+                        MDRectangleFlatButton:
+                            text: "Online Chat"
+                            size_hint: (0.9, 0.05)
+                            font_size: 30
+                            font_style: "H5"
+                            font_size: 35
+                            halign: 'left'
+                            size_hint: 1,1
+                            line_color: 0.9,0.9,0.9,0.9
+                            md_bg_color: 0.9,0.9, 0.95, 1
+                            text_color: 0.6, 0.3, 0.9, 1
+                            on_release: root.current = 'chat'
+                        MDIconButton:
+                            icon: 'chat-processing'
+                            icon_color: 0.6, 0.3, 0.9, 0.9
+                            theme_icon_color: 'Custom'
+                            user_font_size: "70dp"
+                            pos_hint: { 'center_y': 0.5}
+                            valign: 'center'
+                            halign: "left"
+                            on_release: root.current = 'chat'
+
+                    MDCard:
+                        orientation: 'horizontal'
+                        halign: 'left'
+                        md_bg_color: 0.9,0.9, 0.95, 1
+                        size_hint: None, None
+                        size: "270dp", "100dp"
+                        MDRectangleFlatButton:
+                            text: "Journal"
+                            size_hint: (0.9, 0.05)
+                            font_style: "H5"
+                            font_size: 35
+                            halign: 'left'
+                            size_hint: 1,1
+                            line_color: 0.9,0.9,0.9,0.9
+                            md_bg_color: 0.9,0.9, 0.95, 1
+                            text_color: 0.6, 0.3, 0.9, 1
+                            on_release: root.current = 'journal'
+                        MDIconButton:
+                            icon: 'book'
+                            icon_color: 0.6, 0.3, 0.9, 0.9
+                            theme_icon_color: 'Custom'
+                            user_font_size: "70dp"
+                            pos_hint: { 'center_y': 0.5}
+                            valign: 'center'
+                            halign: "left"
+                            on_release: root.current = 'journal'
+#NAVIGATION BAR
             MDBottomNavigationItem:
                 name: 'screen 1'
                 icon: 'poll'
                 #This line of code will change the notification number
-                badge_icon: "numeric-10"      
+                badge_icon: "numeric-10"
+                on_tab_press: root.current = 'stats'
 
             MDBottomNavigationItem:
                 name: 'screen 2'
@@ -55,7 +187,7 @@ ScreenManager:
                 badge_icon: "numeric-3"
 
             MDBottomNavigationItem:
-                name: 'screen 3' 
+                name: 'screen 3'
                 icon: 'cog'
                 MDLabel:
                     text: "Settings"
@@ -68,7 +200,7 @@ ScreenManager:
                         text: "Account"
                         IconLeftWidget:
                             icon: "account"
-                        
+
                     OneLineIconListItem:
                         text: "Notifications"
                         IconLeftWidget:
@@ -95,5 +227,344 @@ ScreenManager:
                             app.sign_out()
                         IconLeftWidget:
                             icon: "logout"
-  
-           
+#Goals Screen
+    Screen:
+        name: "goals"
+        MDBottomNavigation:
+            text_color_active: 0.6, 0.3, 0.9, 1
+            MDBottomNavigationItem:
+                name: 'screen 1'
+                icon: 'chart-tree'
+                #badge_icon: "numeric-10"
+                on_tab_press: root.current = 'Home'
+            MDBottomNavigationItem:
+                name: 'screen 1'
+                icon: 'poll'
+                #This line of code will change the notification number
+                badge_icon: "numeric-10"
+                on_tab_press: root.current = 'stats'
+
+            MDBottomNavigationItem:
+                name: 'screen 2'
+                icon: 'bell'
+                #This line of code will change the notification number
+                badge_icon: "numeric-3"
+            MDBottomNavigationItem:
+                name: 'screen 3'
+                icon: 'cog'
+                on_tab_press: root.current = 'Home'
+
+        BoxLayout:
+            orientation: 'vertical'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+        MDCard:
+            size_hint: None, None
+            size: "260dp", "80dp"
+            pos_hint: {"center_x":0.5, 'center_y': 0.8}
+            padding: 30
+            md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                text: "Goals"
+                font_name: 'Calibri'
+                font_size: 30
+                theme_text_color: "Custom"
+                text_color: (0.6, 0.3, 0.9, 1)            
+            IconLeftWidget:
+                icon:'target'
+                icon_size: 60
+                theme_icon_color: "Custom"
+                icon_color: (0.6, 0.3, 0.9, 1)
+        
+        MDCard:
+            size_hint: None, None
+            size: "280dp", "250dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.5}
+            md_bg_color: 0.9,0.9, 0.95, 1
+            ScrollView:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5, 'center_y': 0.5}
+                md_bg_color: 0.9,0.9, 0.95, 1
+                MDList:
+                    id: goalpanel
+                    orientation: 'lr-tb'
+                    padding: 10
+                    spacing: 20
+
+
+        MDFloatingActionButton:
+            icon: 'plus'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,0.9,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.2}
+            on_release: root.current = 'new_goal'
+            #app.addcard(goalpanel)
+
+#Tasks Screen
+    Screen:
+        name: 'tasks'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+        MDCard:
+            size_hint: None, None
+            size: "260dp", "80dp"
+            pos_hint: {"center_x":0.5, 'center_y': 0.8}
+            padding: 30
+            md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                text: "Tasks"
+                font_name: 'Calibri'
+                font_size: 30
+                theme_text_color: "Custom"
+                text_color: (0.6, 0.3, 0.9, 1)            
+            IconLeftWidget:
+                icon:'calendar-check'
+                icon_size: 60
+                theme_icon_color: "Custom"
+                icon_color: (0.6, 0.3, 0.9, 1)
+        MDCard:
+            size_hint: None, None
+            size: "280dp", "250dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.5}
+            md_bg_color: 0.9,0.9, 0.95, 1
+            ScrollView:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5, 'center_y': 0.5}
+                md_bg_color: 0.9,0.9, 0.95, 1
+                MDList:
+                    id: taskmdlist
+                    orientation: 'lr-tb'
+                    padding: 10
+                    spacing: 20
+        MDIconButton:
+            icon: 'plus'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,0.9,0,1
+            pos_hint:{'center_x':0.85, 'center_y':0.1}
+            on_release: root.current = 'new_task'
+
+
+
+#Stats/Poll Screen
+    Screen:
+        name: 'stats'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+
+#Add Goal Screen
+    Screen:
+        name: 'new_goal'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'goals'
+        MDCard:
+            size_hint: None, None
+            size: "260dp", "80dp"
+            pos_hint: {"center_x":0.5, 'center_y': 0.8}
+            padding: 30
+            md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                text: "New Goal"
+                font_name: 'Calibri'
+                font_size: 30
+                theme_text_color: "Custom"
+                text_color: (0.6, 0.3, 0.9, 1)
+            IconLeftWidget:
+                icon:'calendar'
+                icon_size: 75
+                theme_icon_color: "Custom"
+                icon_color: (0.6, 0.3, 0.9, 1)
+
+        MDCard:
+            id: new_goal_panel
+            orientation: 'vertical'
+            size_hint: None, None
+            padding: 10
+            spacing: 20
+            size: "280dp", "280dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.5}
+            md_bg_color: 0.9,0.9, 0.95, 1
+            valign: 'center'
+            MDTextField:
+                hint_text: "Goal Title"
+                id: Goal_Title
+                hint_text_mode: "persistent"
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)
+                pos_hint:{'center_y': 1}
+            MDTextField:
+                hint_text: "Motivation"
+                multiline: True
+                id: Motiv
+                hint_text_mode: "persistent"
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)
+                pos_hint:{'center_y': 0.5}            
+            #MDRectangleFlatButton:
+            #    text: "Set Date"
+            #    size_hint: 1, None
+            #    on_release: app.goal_cal()
+            MDTextField:
+                id: deadline
+                hint_text: "Target Date"
+                hint_text_mode: "persistent"
+                mode: 'fill'
+            
+            MDTextField:
+                id: task_list
+                hint_text: "Tasks"
+                hint_text_mode: "persistent"
+                mode: 'fill'
+            
+               
+        MDFloatingActionButton:
+            icon: 'check'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,0.9,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            on_release: app.addcard(goalpanel, Goal_Title, Motiv, deadline, task_list, taskmdlist)
+
+#Notification Screen
+    Screen:
+        name: 'notif'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+#Journal Screen
+    Screen:
+        name: 'journal'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+        MDCard:
+            size_hint: None, None
+            size: "260dp", "80dp"
+            pos_hint: {"center_x":0.5, 'center_y': 0.8}
+            padding: 30
+            md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                text: "Journal"
+                font_name: 'Calibri'
+                font_size: 30
+                theme_text_color: "Custom"
+                text_color: (0.6, 0.3, 0.9, 1)            
+            IconLeftWidget:
+                icon:'book'
+                icon_size: 60
+                theme_icon_color: "Custom"
+                icon_color: (0.6, 0.3, 0.9, 1)
+        MDCard:
+            size_hint: None, None
+            size: "280dp", "250dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.5}
+            md_bg_color: 0.9,0.9, 0.95, 1
+            ScrollView:
+                size_hint: 1,1
+                pos_hint: {'center_x':0.5, 'center_y': 0.5}
+                md_bg_color: 0.9,0.9, 0.95, 1
+                MDList:
+                    id: entries
+                    orientation: 'lr-tb'
+                    padding: 10
+                    spacing: 20
+        MDIconButton:
+            icon: 'plus'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,0.9,0,1
+            pos_hint:{'center_x':0.85, 'center_y':0.1}
+            on_release: root.current = 'new_entry'
+
+#New Journal Entry
+    Screen:
+        name: 'new_entry'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+        MDCard:
+            size_hint: None, None
+            size: "260dp", "80dp"
+            pos_hint: {"center_x":0.5, 'center_y': 0.8}
+            padding: 30
+            md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                text: "New Journal Entry"
+                font_name: 'Calibri'
+                font_size: 30
+                theme_text_color: "Custom"
+                text_color: (0.6, 0.3, 0.9, 1)            
+            IconLeftWidget:
+                icon:'fountain-pen'
+                icon_size: 60
+                theme_icon_color: "Custom"
+                icon_color: (0.6, 0.3, 0.9, 1)
+        MDCard:
+            orientation: 'vertical'
+            size_hint: None, None
+            padding: 10
+            spacing: 20
+            size: "280dp", "280dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.5}
+            md_bg_color: 0.9,0.9, 0.95, 1
+            valign: 'center'
+            MDTextField:
+                id: entry_title
+                hint_text: "Title"
+                hint_text_mode: "persistent"
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)
+            MDTextField:
+                id: entry
+                hint_text: "Entry"
+                hint_text_mode: "persistent"
+                multiline: True
+                size_hint: 1, 0.7
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)
+        MDFloatingActionButton:
+            icon: 'check'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,0.9,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            on_release: app.addentry(entries, entry_title, entry)
+        
+
+
+
+
+#Chat Screen
+    Screen:
+        name: 'chat'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'

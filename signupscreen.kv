@@ -1,0 +1,64 @@
+<SignUpScreen>:
+    FloatLayout:
+        MDToolbar:
+            md_bg_color: 1,0,0,0
+            elevation: 0
+            pos_hint: {"top": 1}
+            left_action_items: [['chevron-left', lambda x: root.go_back()]]
+            specific_text_color: 0,0,0,1
+        MDLabel:
+            text: "Hello Beautiful"
+            font_style: "H5"
+            halign: "center"
+            pos_hint: {"center_y":.95}
+        MDLabel: 
+            text: "Sign Up"
+            font_style: "H3"
+            halign: "center"
+            pos_hint: {"center_y":.89}
+        Image:
+            source: "signUpScreen.png"
+            allow_stretch: True
+            size_hint: .85, .85
+            pos_hint: {"center_y":.6, "center_x":.5}
+
+        MDTextField:
+            id: email
+            size_hint_x: .9
+            pos_hint: {"center_x": .5, "top": .35}
+            hint_text: "Email"
+
+        MDTextField:
+            id: password
+            size_hint_x: .9
+            pos_hint: {"center_x": .5, "top": .275}
+            hint_text: "Password"
+            password: True
+
+        MDRaisedButton:
+            text: "Create Account"
+            size_hint: .4 ,.05
+            pos_hint: {"center_x": .75, "top": .175}
+            md_bg_color:.67, .44, .29, 1
+            on_release:
+                # Need to refer to the FirebaseLoginScreen
+                root.parent.parent.sign_up(email.text, password.text)
+                sign_in_button.opacity = 0
+                sign_in_button.disabled = True
+                root.parent.parent.display_loading_screen()
+                root.parent.parent.ids.sign_in_screen.ids.email.text = email.text
+                root.parent.parent.ids.sign_in_screen.ids.password.text = password.text
+
+        MDRaisedButton:
+            id: sign_in_button
+            text: "Sign in"
+            size_hint: .4 ,.05
+            pos_hint: {"center_x": .75, "center_y": .25}
+            opacity: 0
+            disabled: True
+            on_release:
+                root.parent.current = "sign_in_screen"
+                root.parent.parent.ids.sign_in_screen.ids.email.text = email.text
+                root.parent.parent.ids.sign_in_screen.ids.password.text = password.text
+
+
