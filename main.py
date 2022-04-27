@@ -2,7 +2,8 @@ from kivymd.app import MDApp
 # Resize the window
 from kivy.core.window import Window
 import azureservies
-from backend import *
+import bot
+import backend
 
 Window.size = (350, 600)
 class MainApp(MDApp):
@@ -11,11 +12,13 @@ class MainApp(MDApp):
     
 
     def display_user_tokens(self):
-        Tarik = User(False, False, True, True)# Create User
+        Tarik = backend.User(self.user_idToken)# Create User
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
-        #Tarik.getContacts(self.local_id)
-        #word = azureservies.STT()
-        print(azureservies.TSU())
+        Goal = Tarik.AddGoal("Get Buff", None)
+        Task = Tarik.AddTask("Go to the gym","Get Buff")
+        bot.TaskStatus(Task)
+        Tarik.FindTask(Tarik.FindGoal("Get Buff"), "Go to the gym")
+        
 
 
     def sign_out(self):

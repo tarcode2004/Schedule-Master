@@ -109,6 +109,7 @@ def TSU():
         result = recognizer.recognize_once_async().get()
         if result.reason == speechsdk.ResultReason.RecognizedIntent:
             intent = result.intent_id
+            print(intent)
             return intent
         elif result.reason == speechsdk.ResultReason.RecognizedSpeech:
             # Speech was recognized, but no intent was identified.
@@ -129,8 +130,91 @@ def TSU():
 
 
 # Reason for Not Completing Task Understanding
-def NCU(self):
-    pass
+def NCU():
+    try: 
+        load_dotenv()
+        TSID = os.getenv('INCOMPLETE_REASON_ID')
+        lu_prediction_region = os.getenv('LU_PREDICTION_REGION')
+        lu_prediction_key = os.getenv('LU_PREDICTION_KEY')
+
+        # Configure speech service and get intent recognizer
+        speech_config = speechsdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
+        audio_config = speechsdk.AudioConfig(use_default_microphone=True)
+        recognizer = speechsdk.intent.IntentRecognizer(speech_config, audio_config)
+
+        model = speechsdk.intent.LanguageUnderstandingModel(app_id=TSID)
+        intents = [
+            (model, "Lack of Faith"),
+            (model, "Break"),
+            (model, "Serious Excuse"),
+            (model, "None")
+        ]
+        recognizer.add_intents(intents)
+        intent = ''
+        result = recognizer.recognize_once_async().get()
+        if result.reason == speechsdk.ResultReason.RecognizedIntent:
+            intent = result.intent_id
+            print(intent)
+            return intent
+        elif result.reason == speechsdk.ResultReason.RecognizedSpeech:
+            # Speech was recognized, but no intent was identified.
+            #intent = result.text
+            #print("I don't know what {} means.".format(intent))
+            return None
+        elif result.reason == speechsdk.ResultReason.NoMatch:
+            # Speech wasn't recognized
+            return None
+        elif result.reason == speechsdk.ResultReason.Canceled:
+            # Something went wrong
+            print("Intent recognition canceled: {}".format(result.cancellation_details.reason))
+            if result.cancellation_details.reason == speechsdk.CancellationReason.Error:
+                print("Error details: {}".format(result.cancellation_details.error_details))
+            return None
+    except Exception as ex:
+        print(ex)
+
+# Yes or No understanding
+def YN():
+    try: 
+        load_dotenv()
+        TSID = os.getenv('YN_ID')
+        lu_prediction_region = os.getenv('LU_PREDICTION_REGION')
+        lu_prediction_key = os.getenv('LU_PREDICTION_KEY')
+
+        # Configure speech service and get intent recognizer
+        speech_config = speechsdk.SpeechConfig(subscription=lu_prediction_key, region=lu_prediction_region)
+        audio_config = speechsdk.AudioConfig(use_default_microphone=True)
+        recognizer = speechsdk.intent.IntentRecognizer(speech_config, audio_config)
+
+        model = speechsdk.intent.LanguageUnderstandingModel(app_id=TSID)
+        intents = [
+            (model, "yes"),
+            (model, "no"),
+            (model, "None")
+        ]
+        recognizer.add_intents(intents)
+        intent = ''
+        result = recognizer.recognize_once_async().get()
+        if result.reason == speechsdk.ResultReason.RecognizedIntent:
+            intent = result.intent_id
+            print(intent)
+            return intent
+        elif result.reason == speechsdk.ResultReason.RecognizedSpeech:
+            # Speech was recognized, but no intent was identified.
+            #intent = result.text
+            #print("I don't know what {} means.".format(intent))
+            return None
+        elif result.reason == speechsdk.ResultReason.NoMatch:
+            # Speech wasn't recognized
+            return None
+        elif result.reason == speechsdk.ResultReason.Canceled:
+            # Something went wrong
+            print("Intent recognition canceled: {}".format(result.cancellation_details.reason))
+            if result.cancellation_details.reason == speechsdk.CancellationReason.Error:
+                print("Error details: {}".format(result.cancellation_details.error_details))
+            return None
+    except Exception as ex:
+        print(ex)
 
 
 def default():
