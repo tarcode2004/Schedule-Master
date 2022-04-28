@@ -141,7 +141,7 @@ class FirebaseLoginScreen(Screen, EventDispatcher):
             self.login_state = 'in'
             self.login_success = True
 
-        new_user = '{"Bio": "", "Contact List": {"Christian": "", "Luis": ""}, "Goal List": {"Health": "", "Job": {"Coding": ""}, "Relations": {"Family": "", "Friends": ""}}, "Profile Pic": "", "UID": "", "name": "Tarik Metin"}'
+        new_user = '{"Bio": "", "Contact List": {"Christian": "", "Luis": ""}, "Goal List": {}, "Profile Pic": "", "UID": "", "name": "Tarik Metin"}'
         #new_user = '{"id": "%s"}' %id_token
         workout_request = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" +self.localId+".json", data=new_user)
 

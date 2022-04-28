@@ -1,6 +1,7 @@
 from datetime import date
 from gc import callbacks
 from re import MULTILINE
+import backend
 from xmlrpc.client import DateTime
 from kivymd.app import MDApp
 # Resize the window
@@ -13,7 +14,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDIconButton, MDFlatButton
 from kivymd.uix.list import OneLineRightIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.list import IconRightWidget
-from kivymd.uix.pickers import MDDatePicker
+from kivymd.uix.picker import MDDatePicker
 from functools import partial
 from datetime import datetime
 
@@ -23,6 +24,8 @@ class MainApp(MDApp):
     local_id = ""
     goal_cards = 0
     dateholder = ""
+
+
     def addcard(self, panel, title, motiv, datex, tasklist, taskwidget):        
         list = (datex.text.split('/')) 
         var = date(int(list[2]), int(list[0]), int(list[1]))
@@ -49,8 +52,6 @@ class MainApp(MDApp):
 
     def printsht(self):
         print("fuiyoh")
-    
-   
     
     def addentry(self, target, title, text):
         base = TwoLineAvatarIconListItem()
@@ -95,9 +96,11 @@ class MainApp(MDApp):
         picker.open()
 
     def display_user_tokens(self):
-        Tarik = User(False, False, True, True)# Create User
+        Tarik = User(self.user_idToken)# Create User
+        print(MainApp.user_idToken)
+        Tarik.Push(self.user_idToken)
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
-        Tarik.getContacts(self.local_id)
+        #Tarik.Get(MainApp.user_idToken)
 
     def sign_out(self):
         self.root.ids.firebase_login_screen.log_out()
@@ -105,3 +108,4 @@ class MainApp(MDApp):
         
 
 MainApp().run()
+

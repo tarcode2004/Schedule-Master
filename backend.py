@@ -154,12 +154,18 @@ class User:
         return self.FindTask(goal, Name)
 
     def Get(self, UserID):
-        result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/"+UserID)
+        print(UserID)
+        result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/"+UserID+".json")
+        data = json.loads(result.content.decode())
+        print(result.ok)
+        print("DATA IS", data)
         #Assign to Data Structures
 
     def Push(self, UserID):
-        structure = {} # Constuct from Data Structures
-        requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/"+UserID)
+        new_user = '{"Bio": "", "Contact List": {"Christian": "", "Luis": ""}, "Goal List": {}, "Profile Pic": "", "UID": "", "name": "Tarik Metin"}'
+        new_user = '{"id": "%s"}' %UserID
+        result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" +UserID+".json", data=new_user)
+        print("Status",result)
 
 
     def __init__(self,ID):
