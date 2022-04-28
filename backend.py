@@ -161,15 +161,14 @@ class User:
         print("DATA IS", data)
         #Assign to Data Structures
 
-    def Push(self, UserID):
-        new_user = '{"Bio": "", "Contact List": {"Christian": "", "Luis": ""}, "Goal List": {}, "Profile Pic": "", "UID": "", "name": "Tarik Metin"}'
-        new_user = '{"id": "%s"}' %UserID
-        result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" +UserID+".json", data=new_user)
+    def Push(self):
+        user = '{"Bio": "", "Contact List": {"Christian": "", "Luis": ""}, "Goal List": {}, "Profile Pic": "", "UID": "", "name": "Bruh Metin"}'
+        print(self.UID)
+        result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" + self.UID + ".json", data=user)
         print("Status",result)
 
-
     def __init__(self,ID):
-        UID = ID
+        self.UID = ID
         
     def getContacts(self, local_id):
         result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/Connections.json")

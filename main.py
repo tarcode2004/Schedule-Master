@@ -96,9 +96,8 @@ class MainApp(MDApp):
         picker.open()
 
     def display_user_tokens(self):
-        Tarik = User(self.user_idToken)# Create User
-        print(MainApp.user_idToken)
-        Tarik.Push(self.user_idToken)
+        Tarik = User(self.local_id)# Create User
+        Tarik.Push()
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
         #Tarik.Get(MainApp.user_idToken)
 
