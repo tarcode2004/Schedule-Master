@@ -6,7 +6,8 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.factory import Factory
 import certifi
-
+import requests
+import json
 # KivyMD imports
 from kivymd.toast import toast
 
@@ -139,6 +140,11 @@ class FirebaseLoginScreen(Screen, EventDispatcher):
             self.save_refresh_token(self.refresh_token)
             self.login_state = 'in'
             self.login_success = True
+
+        new_user = '{"Bio": "", "Contact List": {"Christian": "", "Luis": ""}, "Goal List": {"Health": "", "Job": {"Coding": ""}, "Relations": {"Family": "", "Friends": ""}}, "Profile Pic": "", "UID": "", "name": "Tarik Metin"}'
+        #new_user = '{"id": "%s"}' %id_token
+        workout_request = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" +self.localId+".json", data=new_user)
+
 
     def sign_in_success(self, urlrequest, log_in_data):
         """Collects info from Firebase upon successfully registering a new user.
