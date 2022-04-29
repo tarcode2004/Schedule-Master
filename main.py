@@ -41,6 +41,7 @@ class MainApp(MDApp):
     user_idToken = ""
     local_id = ""
     task_day_list = []
+    User = User(local_id)# Create User
 
     def newgoalobject(self, title, motiv, tasks, datex):
         task_list =[]
@@ -60,7 +61,10 @@ class MainApp(MDApp):
             new_task =  Task(i, None, title.text,var, [], Frequency(0), None)#d(name, description, goal, date, days, frequency, time):
             task_list.append(new_task)
         #Create Goal Object
-        locals()[title.text]= Goal(title.text, motiv.text, var, task_list, strvar)
+        G = backend.Goal(title.text, motiv.text, var, task_list, strvar)
+        locals()[title.text] = G
+        self.User.GoalList.append(G)
+        self.User.UpdateGoals()
         #locals()[title.text].Tasks_str = tasks.text
         #Add Goal to Database Profile
         self.addcard(locals()[title.text])
@@ -240,10 +244,8 @@ class MainApp(MDApp):
             self.task_day_list.remove(item)
             print(self.task_day_list)
             
-    def display_user_tokens(self):
-        Tarik = User(self.local_id)# Create User
+    def display_user_tokens(self): 
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
-        #Tarik.Get(MainApp.user_idToken)
 
     def sign_out(self):
         self.root.ids.firebase_login_screen.log_out()
