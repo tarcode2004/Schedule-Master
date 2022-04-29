@@ -16,7 +16,7 @@ from kivymd.uix.selectioncontrol import MDCheckbox
 from functools import partial
 from datetime import datetime
 from backend import *
-Window.size = (420, 720)
+Window.size = (420, 750)
 
 from kivymd.uix.label import MDLabel
 from kivy.properties import StringProperty, NumericProperty
