@@ -10,7 +10,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDIconButton, MDFlatButton
 from kivymd.uix.list import OneLineRightIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.list import IconRightWidget
-from kivymd.uix.picker import MDTimePicker
+from kivymd.uix.pickers import MDTimePicker
 from kivymd.uix.selectioncontrol import MDCheckbox
 from functools import partial
 from datetime import *
@@ -61,8 +61,18 @@ class MainApp(MDApp):
         #Create Tasks
         for i in (tasks.text.split(',')):
             strvar = strvar + i +", "
-            new_task = backend.Task(i, None, title.text,var, [], Frequency(0), None)#d(name, description, goal, date, days, frequency, time):
+            new_task = backend.Task(i, "Working towards "+str(title.text), title.text, var, ["Mo, Tu, Fri"], Frequency(0), str(time.now()))#d(name, description, goal, date, days, frequency, time):
             task_list.append(new_task)
+            Dict_Task = {}
+            Dict_Task["title"] = i
+            Dict_Task["Description"] = "Working towards "+str(title.text)
+            Dict_Task["Date"] = var
+            Dict_Task["Mo, Tu, Fri"]
+            Dict_Task["Frequency"] = 0
+            Dict_Task["Time"] = str(time.now())
+            data = json.dumps(Dict_Task)
+            result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" + self.local_id + "/Goals/Tasks"+ ".json", data=data)
+            print(result)
         #Create Goal Object
         G = backend.Goal(title.text, motiv.text, var, task_list, strvar)
         locals()[title.text] = G
@@ -77,7 +87,7 @@ class MainApp(MDApp):
         data = json.dumps(Dict_Goal)
         result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" + self.local_id + "/Goals"+ ".json", data=data)
         print(result)
-
+        
 
         self.addcard(locals()[title.text])
         for i in task_list:
@@ -199,6 +209,9 @@ class MainApp(MDApp):
         task_ref.set_time(var) 
         self.task_day_list = []
 
+    def edit_task(self, task_ref, name, description, goal, frequency, timex):
+        pass
+        
     def addtaskcard(self, task):
         base = TwoLineAvatarIconListItem()
         base.text = task.Name
@@ -223,17 +236,13 @@ class MainApp(MDApp):
                         text = "Motivation: "+str(goal.get_motivation())+"\nCompletion Date: "+str(goal.get_date())+ "\nTasks: "+str(goal.get_tasks_str()),
                         auto_dismiss = True, overlay_color=(0.6, 0.3, 0.9, 1))
         popup.open()   
-<<<<<<< Updated upstream
    
     def call_bot(self, *args):
         #Task = self.User.GoalList[0].Tasks[0]
         self.TaskStatus(Task)
         journal = "self.User.GoalList[0].Journal[0]"
         self.addjournalcard(journal)
-=======
->>>>>>> Stashed changes
-
-   #Determine if task should repeated on a day
+    #Determine if task should repeated on a day
     def days_task(self, target, val):
         self.freq = val
         if self.root.ids.frequency_options.children == []and target == self.root.ids.frequency_options:
