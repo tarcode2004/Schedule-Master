@@ -93,7 +93,7 @@ class Task():
     def get_description(self):
         return self.Description
     def get_goal(self):
-        return self.Goal_Name
+        return self.Goal
     def get_date(self):
         return(self.Date)
     def get_days(self):
@@ -157,6 +157,7 @@ class User:
     ProfilePic_ID = 1
     Bio = ""
     GoalList = []
+    TaskList =[]
     ContactList = []
 
     def PrintGoals(self):
@@ -184,7 +185,7 @@ class User:
         #print(data['Christian and Luis']['IID'])
         #print("DATA IS", data) 
 
-    def UpdateGoals(self):
+    def UpdateGoals(self, G):
         #print(type(self.GoalList))
         for Goal in self.GoalList:
             Journal = []
@@ -197,10 +198,11 @@ class User:
                 Journal.append(JournalE)
 
             Tasks = []
-            for Task in Goal.Tasks:
-                Tasks.append(Task.Name)
+            for i in range(len(G.Tasks)): #CAlling a class attribute not an object attribute
+                print(Task)
+                Tasks.append(Task)
             Goal = {}
-            Goal["Goal"] = Goal.Name
+            Goal["Goal"] = G.get_name()
             Goal["Tasks"] = Tasks
             Goal["Journal"] = Journal 
             data = json.dumps(Goal.__dict__)

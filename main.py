@@ -1,7 +1,6 @@
 from datetime import date
 from datetime import datetime
 from kivymd.app import MDApp
-# Resize the window
 from kivy.core.window import Window
 import backend
 from kivymd.uix.card import MDCard
@@ -48,7 +47,7 @@ class MainApp(MDApp):
     User = User(local_id)# Create User
 
     def newgoalobject(self, title, motiv, tasks, datex):
-        task_list =[]
+        task_list = []
         strvar = ""
         #Ensure Date Format is correct
         try: 
@@ -62,20 +61,29 @@ class MainApp(MDApp):
         #Create Tasks
         for i in (tasks.text.split(',')):
             strvar = strvar + i +", "
-            new_task =  Task(i, None, title.text,var, [], Frequency(0), None)#d(name, description, goal, date, days, frequency, time):
+            new_task = backend.Task(i, None, title.text,var, [], Frequency(0), None)#d(name, description, goal, date, days, frequency, time):
             task_list.append(new_task)
         #Create Goal Object
         G = backend.Goal(title.text, motiv.text, var, task_list, strvar)
         locals()[title.text] = G
         self.User.GoalList.append(G)
-        self.User.UpdateGoals()
-        #locals()[title.text].Tasks_str = tasks.text
-        #Add Goal to Database Profile
+        Dict_Goal = {}
+        Dict_Goal["Goal"] = str(G.get_name())
+        #Dict_Goal["Tasks"] = task_list
+        Dict_Goal["Motivation"] = motiv.text
+        Dict_Goal["Complete by"] = str(var)
+        Dict_Goal["Task_Names"] = strvar
+        Dict_Goal["Journal"] = []
+        data = json.dumps(Dict_Goal)
+        result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" + self.local_id + "/Goals"+ ".json", data=data)
+        print(result)
+
+
         self.addcard(locals()[title.text])
         for i in task_list:
             self.addtaskcard(i)
        
-    def addcard(self, goal):    
+    def addcard(self, goal):
         base = TwoLineAvatarIconListItem()
         word = MDLabel()
         word.padding = 20, 20
@@ -140,7 +148,7 @@ class MainApp(MDApp):
             pre_var = str(timex.text).split(':')
             print(pre_var)
             var = None
-        locals()[title.text] = Task(title.text, description.text, goal, datex, self.task_day_list, Frequency(self.freq), timex)
+        locals()[title.text] = backend.Task(title.text, description.text, goal, datex, self.task_day_list, Frequency(self.freq), timex)
         if goal_ref != None:
             goal_ref.add_task(locals()[title.text])
         self.addtaskcard(locals()[title.text])
@@ -151,15 +159,19 @@ class MainApp(MDApp):
         self.root.ids.edit_task_goal = task.get_goal()
         self.root.current = "edit_task"
     #Edit existing Task Object
+
     def edit_task(self, task_ref, name, description, goal, frequency, timex):
         goal_ref = None
         task_ref = None
+        print(goal)
         #Check if goal enetred is valid
-        for i in Goal_List:
-            if goal == i.Name:
-                goal_ref = i
-                goal= goal_ref.Name
-                datex = goal_ref.Date
+        for i in self.User.Goal_List:
+            print(i)
+            if name in i.get_tasks_str():
+                for j in i.get_tasks():
+                    goal_ref = i
+                    goal = goal_ref.Name
+                    datex = goal_ref.Date
                 for i in (goal_ref.Tasks):
                     if task_ref == i.Name:
                         task_ref = i
@@ -178,6 +190,7 @@ class MainApp(MDApp):
             print(pre_var)
             print("Invalid Time Format")
             var = None
+        print(task_ref)
         task_ref.set_name(name.text)
         task_ref.set_description(description.text)
         task_ref.set_date(datex)
@@ -210,12 +223,15 @@ class MainApp(MDApp):
                         text = "Motivation: "+str(goal.get_motivation())+"\nCompletion Date: "+str(goal.get_date())+ "\nTasks: "+str(goal.get_tasks_str()),
                         auto_dismiss = True, overlay_color=(0.6, 0.3, 0.9, 1))
         popup.open()   
+<<<<<<< Updated upstream
    
     def call_bot(self, *args):
         #Task = self.User.GoalList[0].Tasks[0]
         self.TaskStatus(Task)
         journal = "self.User.GoalList[0].Journal[0]"
         self.addjournalcard(journal)
+=======
+>>>>>>> Stashed changes
 
    #Determine if task should repeated on a day
     def days_task(self, target, val):
@@ -250,7 +266,7 @@ class MainApp(MDApp):
         elif item in self.task_day_list:
             self.task_day_list.remove(item)
             print(self.task_day_list)
-            
+        
     def display_user_tokens(self): 
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
 
