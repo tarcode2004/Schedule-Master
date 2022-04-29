@@ -11,7 +11,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDIconButton, MDFlatButton
 from kivymd.uix.list import OneLineRightIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.list import IconRightWidget
-from kivymd.uix.pickers import MDTimePicker
+from kivymd.uix.picker import MDTimePicker
 from kivymd.uix.selectioncontrol import MDCheckbox
 from functools import partial
 from datetime import datetime
@@ -241,7 +241,7 @@ class MainApp(MDApp):
             print(self.task_day_list)
             
     def display_user_tokens(self):
-        Tarik = User(False, False, True, True)# Create User
+        Tarik = User(self.local_id)# Create User
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
         #Tarik.Get(MainApp.user_idToken)
 
