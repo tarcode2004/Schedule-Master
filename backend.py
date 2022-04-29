@@ -232,7 +232,8 @@ class User:
 
     def GetJournal(self):
         result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/" + self.ContactList[0].ID + "/Journal" ".json")
-        
+        data = json.loads(result.content.decode())
+        print(data)
 
 
 #Varaibles For Database
