@@ -11,8 +11,12 @@ class ContactStatus(Enum):
     Established = 2
 
 class Contact:
+    Name = ""
     ID = ""
     Status = ContactStatus(0)
+    def __init__(self, Name, ID):
+        self.Name = Name
+        self.ID = ID
 
 class Connection:
     InstantiatorID = ""
@@ -38,18 +42,6 @@ class Verification(Enum):
     Book = 2 # detect book using camera
     Ball = 3 # detect ball using camera
 
-class Task: 
-    ID = ""
-    Name = ""
-    Description = ""
-    Date = ""
-    Frequency = Frequency(0) # Never, Days, Weeks, Months
-    Days=[]
-    Time = ""
-    Goal_Name = ""
-    Alert = Alert(1)# Indicated type of Alert
-    Vertification = Verification(0)
-    SubTasks = []
 class Journal_Entry():
     Title= ""
     Content=""
@@ -149,26 +141,6 @@ class Goal:
         
 
 
-
-
-class Task: 
-    ID = ""
-    Name = ""
-    Description = ""
-    Dates = []
-    Frequency = Frequency(0) # Never, Days, Weeks, Months, Years repeat option
-    Num = 0 # Number of days, weeks, months, or years to repeate
-    Alert = Alert(1)# Indicated type of Alert
-    Vertification = Verification(0)
-    Goal
-
-    def __init__(self, name, G):
-        self.ID = uuid.uuid4()
-        self.Name = name
-        self.Goal = G # Have list of Upper Goals
-        self.Goal.Tasks.append(self)
-
-
 class JournalEntry:
     date = time
     Task
@@ -222,27 +194,9 @@ class User:
             if G.Name == string:
                 return G
 
-    def __init__(self, A, B, C, D):
-        UID = uuid.uuid4()
-        """
-        Pass 4 boolean variables to set top level motivations / goals
-        first for being a better person
-        second for maintaining relationships
-        third for a job or providing value to society
-        fourth for health
-        """
-        if A:
-            Good = Goal("Be Good", None, None, None, None)
-            self.GoalList.append(Good)
-        if B:
-            Relationships = Goal("Maintain Relationships", None, None, None, None)
-            self.GoalList.append(Relationships)
-        if C:
-            Job = Goal("Provide Value to Society", None, None, None, None)
-            self.GoalList.append(Job)
-        if D:
-            Health = Goal("Be Healthy", None, None, None, None)
-            self.GoalList.append(Health)
+    def __init__(self, ID):
+        self.UID = ID
+        self.ContactList.append(Contact("Therapist", "sck3ZB7XS4bNdaiFt8aIwIHojRw1"))
         
     def getContacts(self, local_id):
         result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/Connections.json")
