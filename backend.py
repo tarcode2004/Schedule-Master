@@ -11,8 +11,11 @@ class ContactStatus(Enum):
     Established = 2
 
 class Contact:
+    Name = ""
     ID = ""
-    Status = ContactStatus(0)
+    def __init__(self, C):
+        Name = C["Name"]
+        ID = C["ID"]
 
 class Connection:
     InstantiatorID = ""
@@ -122,7 +125,7 @@ class User:
     ProfilePic_ID = 1
     Bio = ""
     GoalList = [Goal]
-    ContactList = []
+    ContactList = [Contact]
 
     def PrintGoals(self):
         for x in range(len(self.GoalList)):
@@ -153,19 +156,33 @@ class User:
         goal.Tasks.append(Task(Name, goal))
         return self.FindTask(goal, Name)
 
-    def Get(self, UserID):
-        print(UserID)
-        result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/"+UserID+".json")
+    def Get(self):
+        result = requests.get("https://masterschedule-be192-default-rtdb.firebaseio.com/"+self.UID+".json")
         data = json.loads(result.content.decode())
         print(result.ok)
-        print("DATA IS", data)
+        self.Username = data['name']
+        self.Bio = data['Bio']
+        self.ProfilePic_ID = data['Profile Pic']
+
+        Goals = data['Goal List']
+        self.GoalList.clear()
+        for G in Goals:
+            self.GoalList.append(G)
+
+        Contacts = data['Contact List']
+        self.ContactList.clear()
+        for C in Contacts:
+            self.ContactList.append(Contact(C))
+        
+
+
         #Assign to Data Structures
 
     def Push(self):
-        user = '{"Bio": "", "Contact List": {"Christian": "", "Luis": ""}, "Goal List": {}, "Profile Pic": "", "UID": "", "name": "Bruh Metin"}'
-        print(self.UID)
-        result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" + self.UID + ".json", data=user)
-        print("Status",result)
+        user = json.dumps(self.__dict__)
+        print(user)
+        #result = requests.patch("https://masterschedule-be192-default-rtdb.firebaseio.com/" + self.UID + ".json", data=user)
+        #print("Status",result)
 
     def __init__(self,ID):
         self.UID = ID

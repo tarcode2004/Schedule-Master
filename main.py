@@ -97,6 +97,8 @@ class MainApp(MDApp):
 
     def display_user_tokens(self):
         Tarik = User(self.local_id)# Create User
+        Tarik.AddGoal("Get Buff", None)
+        Tarik.AddTask("Go to the Gym", "Get Buff")
         Tarik.Push()
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
         #Tarik.Get(MainApp.user_idToken)
