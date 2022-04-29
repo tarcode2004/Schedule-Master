@@ -234,30 +234,6 @@ ScreenManager:
 #Goals Screen
     Screen:
         name: "goals"
-        MDBottomNavigation:
-            text_color_active: 0.6, 0.3, 0.9, 1
-            MDBottomNavigationItem:
-                name: 'screen 1'
-                icon: 'chart-tree'
-                #badge_icon: "numeric-10"
-                on_tab_press: root.current = 'Home'
-            MDBottomNavigationItem:
-                name: 'screen 1'
-                icon: 'poll'
-                #This line of code will change the notification number
-                badge_icon: "numeric-10"
-                on_tab_press: root.current = 'stats'
-
-            MDBottomNavigationItem:
-                name: 'screen 2'
-                icon: 'bell'
-                #This line of code will change the notification number
-                badge_icon: "numeric-3"
-            MDBottomNavigationItem:
-                name: 'screen 3'
-                icon: 'cog'
-                on_tab_press: root.current = 'Home'
-
         BoxLayout:
             orientation: 'vertical'
         MDIconButton:
@@ -672,6 +648,15 @@ ScreenManager:
 #Notification Screen
     Screen:
         name: 'notif'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+#Contacts Screen
+    Screen:
+        name: 'cont'
         MDIconButton:
             icon: 'arrow-left-thin'
             icon_color: 0,0,0,1
