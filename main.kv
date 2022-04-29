@@ -207,7 +207,7 @@ ScreenManager:
                 icon: 'poll'
                 #This line of code will change the notification number
                 badge_icon: "numeric-10"
-                on_tab_press: root.current = 'stats'
+                on_tab_press: root.current = 'cont'
 
             MDBottomNavigationItem:
                 name: 'screen 2'
@@ -697,11 +697,13 @@ ScreenManager:
                 size_hint: 1,1
                 pos_hint: {'center_x':0.5, 'center_y': 0.45}
                 md_bg_color: 0.9,0.9, 0.95, 1
-                MDList:
-                    id: goalpanel
-                    orientation: 'lr-tb'
-                    padding: 10
-                    spacing: 20
+                id: contacts_panel
+            
+            
+                        
+
+
+                    
 
 
         MDFloatingActionButton:

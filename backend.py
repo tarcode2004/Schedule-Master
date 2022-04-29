@@ -38,18 +38,6 @@ class Verification(Enum):
     Book = 2 # detect book using camera
     Ball = 3 # detect ball using camera
 
-class Task: 
-    ID = ""
-    Name = ""
-    Description = ""
-    Date = ""
-    Frequency = Frequency(0) # Never, Days, Weeks, Months
-    Days=[]
-    Time = ""
-    Goal_Name = ""
-    Alert = Alert(1)# Indicated type of Alert
-    Vertification = Verification(0)
-    SubTasks = []
 class Journal_Entry():
     Title= ""
     Content=""
@@ -147,26 +135,6 @@ class Goal:
     def add_task(self, task):
         self.Tasks.append(task)
         
-
-
-
-
-class Task: 
-    ID = ""
-    Name = ""
-    Description = ""
-    Dates = []
-    Frequency = Frequency(0) # Never, Days, Weeks, Months, Years repeat option
-    Num = 0 # Number of days, weeks, months, or years to repeate
-    Alert = Alert(1)# Indicated type of Alert
-    Vertification = Verification(0)
-    Goal
-
-    def __init__(self, name, G):
-        self.ID = uuid.uuid4()
-        self.Name = name
-        self.Goal = G # Have list of Upper Goals
-        self.Goal.Tasks.append(self)
 
 
 class JournalEntry:
