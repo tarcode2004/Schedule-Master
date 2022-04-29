@@ -283,11 +283,32 @@ class MainApp(MDApp):
         
 
         if TaskStatus == "Task Completed":
+            
+            status =  "Task Completed"
+            
+            self.root.ids.chats.add_widget(Command( 
+            text = status,
+            size_hint_x= .50,
+            halign = "center",))
+            
             azureservies.TTS("Would you like to save a note with this task?")
+            
+            tts = "Would you like to save a note with this task?"
+            
+            self.root.ids.chats.add_widget(Response( 
+            text = tts,
+            size_hint_x= .50,
+            halign = "center",))
+            
             result = azureservies.YN()
+            
+            
             if result == "yes":
                 Note = self.JournalNote()
+                print(str(Note))    
+                result = azureservies.YN()
                 JI  = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
+                
                 #Goal.Journal.append(
                 #   JI
                 #)
@@ -298,7 +319,25 @@ class MainApp(MDApp):
                 #)
 
         elif TaskStatus == "Working on Task":
+            
+            status =  "Working on Task"
+            
+            self.root.ids.chats.add_widget(Command( 
+            text = status,
+            size_hint_x= .50,
+            halign = "center",))
+            
             azureservies.TTS("When will you be finished?")
+            
+            
+            tts = "When will you be finished?"
+            
+            self.root.ids.chats.add_widget(Response( 
+            text = tts,
+            size_hint_x= .50,
+            halign = "center",))
+            
+            
             Note = azureservies.STT()
             JI = backend.JournalEntry(Task, TaskStatus, None)#new journal entry
             #Goal.Journal.append(
@@ -308,21 +347,59 @@ class MainApp(MDApp):
             #Reschedule task for that time
 
         elif TaskStatus == "Partially Completed":
+            
+            status =  "Partially Completed"
+            
+            self.root.ids.chats.add_widget(Command( 
+            text = status,
+            size_hint_x= .50,
+            halign = "center",))
+            
+            
             Note = self.JournalNote()
             JI = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
             #Goal.Journal.append(
             #   JI
         # )
         elif TaskStatus == "Did not complete":
+            
+            status =  "Did not complete"
+            
+            self.root.ids.chats.add_widget(Command( 
+            text = status,
+            size_hint_x= .50,
+            halign = "center",))
+            
+            
             azureservies.TTS("Why didn't you complete the task?")
+            
+            
+            tts = "Why didn't you complete the task?"
+            
+            self.root.ids.chats.add_widget(Response( 
+            text = tts,
+            size_hint_x= .50,
+            halign = "center",))
+            
+            
             Excuse = azureservies.NCU()
             Note = self.JournalNote()
+           
+            self.root.ids.chats.add_widget(Command( 
+            text = Excuse,
+            size_hint_x= .50,
+            halign = "center",))
+            
             JI = backend.JournalEntry(Task, TaskStatus, Note, Excuse)#new journal entry
             #Goal.Journal.append(
                 #JI
         # )
         elif TaskStatus == "None": 
             Note = self.JournalNote()
+            self.root.ids.chats.add_widget(Command( 
+            text = Note,
+            size_hint_x= .50,
+            halign = "center",))
             JI = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
         # Goal.Journal.append(
             #    JI
