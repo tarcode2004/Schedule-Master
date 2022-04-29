@@ -120,11 +120,6 @@ class Task():
         self.Time = val
 
 class JournalEntry:
-    Task
-    Status = ""
-    Note = ""
-    Excuse = ""
-
     def __init__(self, *args):
         # if args are more than 1
         # sum of args
@@ -146,20 +141,14 @@ class JournalEntry:
             self.Status = args[1] # Status
             self.Note = args[2] # Note
             self.Excuse = args[3] # Excuse
-
-    def get_title(self):
-        return (self.Title)
-    def get_text(self):
-        return(self.Content)
-    def get_time(self):
-        return(self.RecordTime)
-    def set_title(self, val):
-        self.Title = val
-    def add_text(self, val):
-        self.Content += val
-    def set_time(self, val):
-        self.Content = val
-    
+    def get_task(self):
+        return(self.Task)
+    def get_excuse(self):
+        return(self.Excuse)
+    def get_note(self):
+        return(self.Note)
+    def get_status(self):
+        return(self.Status)
 
 class User:
     #Basics

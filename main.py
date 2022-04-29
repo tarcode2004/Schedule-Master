@@ -11,25 +11,22 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDIconButton, MDFlatButton
 from kivymd.uix.list import OneLineRightIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.list import IconRightWidget
-from kivymd.uix.picker import MDTimePicker
+from kivymd.uix.pickers import MDTimePicker
 from kivymd.uix.selectioncontrol import MDCheckbox
 from functools import partial
-from datetime import datetime
+from datetime import *
 from backend import *
 Window.size = (420, 810)
-
 from kivymd.uix.label import MDLabel
 from kivy.properties import StringProperty, NumericProperty
+from bot import *
 
 class Command(MDLabel):
     text = StringProperty()
     size_hint_x = NumericProperty()
     halign = StringProperty()
     font_size = 44
-    def msg(command):
         
-
-
 class Response(MDLabel):
     text = StringProperty()
     size_hint_x = NumericProperty()
@@ -93,22 +90,20 @@ class MainApp(MDApp):
     def printsht(self, item):
         print(item) 
 
-    def newentry(self, target, title, text):
-        locals()[title.text] = Journal_Entry(title, text, datetime.now())
-        self.addjournalcard(locals()[title.text])
-        #Append Journal to goals list
+    def newentry(self, task, status = None, note = None, excuse = None ):
+        locals()[str(datetime.now)] = JournalEntry(task, status, note, excuse)
+        self.addjournalcard(locals()[str((datetime.now))])
 
     def addjournalcard(self, journal_entry):
-        if self.root.ids.children == []:
+        if journal_entry.Task != None:
             base = TwoLineAvatarIconListItem()
             base.text = str()
-            base.on_release = partial(self.display_entry, journal_entry.get_title, journal_entry.get_text())
+            base.on_release = partial(self.display_entry, journal_entry)
             self.target.add_widget(base)
-            self.root.current = 'journal'
-    
+            self.root.current = 'journal'    
 
-    def display_entry(self, titlex, textx):
-        popup = MDDialog(title = titlex, text = textx, auto_dismiss = True, overlay_color=(0.6, 0.3, 0.9, 1))
+    def display_entry(self, journal_entry):
+        popup = MDDialog(title = str(journal_entry.get_task())+": "+str(datetime.now()), text = journal_entry.get_note+"\n"+journal_entry.get_excuse(), auto_dismiss = True, overlay_color=(0.6, 0.3, 0.9, 1))
         popup.open()
 
     def display_task(self, task):
@@ -209,6 +204,11 @@ class MainApp(MDApp):
                         auto_dismiss = True, overlay_color=(0.6, 0.3, 0.9, 1))
         popup.open()   
    
+    def call_bot(self):
+        Task = self.User.GoalList[0].Tasks[0]
+        TaskStatus(Task)
+        journal = self.User.GoalList[0].Journal[0]
+        self.addjournalcard(journal)
 
    #Determine if task should repeated on a day
     def days_task(self, target, val):
