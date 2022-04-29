@@ -1,4 +1,5 @@
 from datetime import date
+from datetime import datetime
 from kivymd.app import MDApp
 # Resize the window
 from kivy.core.window import Window
@@ -105,15 +106,15 @@ class MainApp(MDApp):
             datex = ""
 
         #Check if time is valid
-        #try:
+        try:
             pre_var = str(timex.text).split(':')
             print(pre_var)
             var = datetime.time(int(pre_var[0]),int(pre_var[1], 0 ))
-        '''except:
+        except:
             print("Invalid Time Format")
             pre_var = str(timex.text).split(':')
             print(pre_var)
-            var = None'''
+            var = None
         locals()[title.text] = Task(title.text, description.text, goal, datex, self.task_day_list, Frequency(self.freq), timex)
         if goal_ref != None:
             goal_ref.add_task(locals()[title.text])
@@ -223,7 +224,7 @@ class MainApp(MDApp):
     def display_user_tokens(self):
         Tarik = User(False, False, True, True)# Create User
         self.root.ids.the_label.text = "local_id: " + self.local_id + "\n user_idToken: " + self.user_idToken
-        Tarik.getContacts(self.local_id)
+        #Tarik.Get(MainApp.user_idToken)
 
     def sign_out(self):
         self.root.ids.firebase_login_screen.log_out()
@@ -231,3 +232,4 @@ class MainApp(MDApp):
         
 
 MainApp().run()
+

@@ -1,6 +1,6 @@
 from backend import *
 
-Tarik = User(False, False, True, True)# Create User
+Tarik = User()# Create User
 
 Tarik.AddGoal("Improve Cardiovascular Health", [Tarik.GoalList[0]]) # Add Sub Goal
 
