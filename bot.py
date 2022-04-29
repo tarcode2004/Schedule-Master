@@ -36,8 +36,8 @@ def TaskStatus(Task):
 
     elif TaskStatus == "Working on Task":
         azureservies.TTS("When will you be finished?")
-        RescheduleTime = azureservies.STT()
-        JI = backend.JournalEntry(Task, TaskStatus, RescheduleTime)#new journal entry
+        Note = azureservies.STT()
+        JI = backend.JournalEntry(Task, TaskStatus, None)#new journal entry
         Goal.Journal.append(
             JI
         )
