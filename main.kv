@@ -1,5 +1,30 @@
 #:import FirebaseLoginScreen firebaseloginscreen.firebaseloginscreen
-
+<Command>
+    size_hint_y: None
+    pos_hint: {"right": .98}
+    height: self.texture_size[1]
+    padding: 12, 10
+    theme_text_color: "Custom"
+    text_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgb: (1, 170/255, 23/255, 1)
+        RoundedRectangle:
+            size: self.width, self.height
+            pos: self.pos
+            radius: [23, 23, 0, 23]
+<Response>
+    size_hint_y: None
+    pos_hint: {"x": .02}
+    height: self.texture_size[1]
+    padding: 12, 10
+    canvas.before:
+        Color:
+            rgb: (1, 1, 1, 1)
+        RoundedRectangle:
+            size: self.width, self.height
+            pos: self.pos
+            radius: [23, 23, 23, 0]
 ScreenManager:
     id: screen_manager
     FirebaseLoginScreen:
@@ -182,7 +207,7 @@ ScreenManager:
                 icon: 'poll'
                 #This line of code will change the notification number
                 badge_icon: "numeric-10"
-                on_tab_press: root.current = 'cont'
+                on_tab_press: root.current = 'stats'
 
             MDBottomNavigationItem:
                 name: 'screen 2'
@@ -663,29 +688,6 @@ ScreenManager:
             md_bg_color: 1,1,1,1
             pos_hint:{'center_x':0.1, 'center_y':0.95}
             on_release: root.current = 'Home'
-        MDCard:
-            size_hint: None, None
-            size: "280dp", "375dp"
-            pos_hint: {'center_x':0.5, 'center_y': 0.5}
-            md_bg_color: 0.9,0.9, 0.95, 1
-            ScrollView:
-                size_hint: 1,1
-                pos_hint: {'center_x':0.5, 'center_y': 0.5}
-                md_bg_color: 0.9,0.9, 0.95, 1
-                MDList:
-                    id: goalpanel
-                    orientation: 'lr-tb'
-                    padding: 10
-                    spacing: 20
-
-
-        MDFloatingActionButton:
-            icon: 'plus'
-            icon_color: 0,0,0,1
-            md_bg_color: 1,0.9,0,1
-            pos_hint: {'center_x':0.8, 'center_y':0.2}
-            on_release:
-
 #Journal Screen
     Screen:
         name: 'journal'
@@ -789,9 +791,40 @@ ScreenManager:
 #Chat Screen
     Screen:
         name: 'chat'
+        text_color_active: 0, 0, 0, 1
+        
+                
+        ScrollView:
+            size_hint_y: .77
+            pos_hint: {"x": 0, "y": .116}
+            do_scroll_x: False
+            do_scroll_y: True
+            BoxLayout:
+                orientation: 'vertical'
+                size: (root.width, root.height)
+                height: self.minimum_height
+                size_hint: None, None
+                pso_hint: {'top': 10}
+                cols: 1
+                spacing: 5
+                Command: 
+                    text: "Hello"
+                    size_hint_x: .50
+                    halign: "center"
+                Response: 
+                    text: "Hello"
+                    size_hint_x: .50
+                    halign: "center"
         MDIconButton:
             icon: 'arrow-left-thin'
             icon_color: 0,0,0,1
             md_bg_color: 1,1,1,1
             pos_hint:{'center_x':0.1, 'center_y':0.95}
             on_release: root.current = 'Home'
+        MDIconButton:
+            icon: 'microphone'
+            on_release: 
+            md_bg_color: 0.6, 0.3, 0.9, 0.9
+            pos_hint: {'center_x': 0.5}
+        
+        
