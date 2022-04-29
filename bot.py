@@ -1,4 +1,6 @@
 from asyncio import Task
+
+from setuptools import Command
 import azureservies
 import backend
 
@@ -12,10 +14,11 @@ def YN(string):
     result = azureservies.YN()
     return result
 
-def TaskStatus(Task):
-    Goal = Task.Goal
-    TaskName = Task.Name
+def TaskStatus(Task, *args):
+    #Goal = Task.Goal
+    TaskName = "do a task"
     Prompt = "did you " + TaskName
+   
     azureservies.TTS(Prompt)
     JI = backend.JournalEntry
     TaskStatus = azureservies.TSU()
@@ -25,42 +28,42 @@ def TaskStatus(Task):
         if result == "yes":
             Note = JournalNote()
             JI  = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
-            Goal.Journal.append(
-                JI
-            )
+            #Goal.Journal.append(
+             #   JI
+            #)
         else:
             JI  = backend.JournalEntry(Task, TaskStatus)#new journal entry
-            Goal.Journal.append(
-                JI
-            )
+            #Goal.Journal.append(
+               # JI
+            #)
 
     elif TaskStatus == "Working on Task":
         azureservies.TTS("When will you be finished?")
         Note = azureservies.STT()
         JI = backend.JournalEntry(Task, TaskStatus, None)#new journal entry
-        Goal.Journal.append(
-            JI
-        )
+        #Goal.Journal.append(
+         #   JI
+        #)
         #Undersatnd time
         #Reschedule task for that time
 
     elif TaskStatus == "Partially Completed":
         Note = JournalNote()
         JI = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
-        Goal.Journal.append(
-            JI
-        )
+        #Goal.Journal.append(
+         #   JI
+       # )
     elif TaskStatus == "Did not complete":
         azureservies.TTS("Why didn't you complete the task?")
         Excuse = azureservies.NCU()
         Note = JournalNote()
         JI = backend.JournalEntry(Task, TaskStatus, Note, Excuse)#new journal entry
-        Goal.Journal.append(
-            JI
-        )
+        #Goal.Journal.append(
+            #JI
+       # )
     elif TaskStatus == "None": 
         Note = JournalNote()
         JI = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
-        Goal.Journal.append(
-            JI
-        )
+       # Goal.Journal.append(
+        #    JI
+        #)

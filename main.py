@@ -11,7 +11,7 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDIconButton, MDFlatButton
 from kivymd.uix.list import OneLineRightIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.list import IconRightWidget
-from kivymd.uix.pickers import MDTimePicker
+from kivymd.uix.picker import MDTimePicker
 from kivymd.uix.selectioncontrol import MDCheckbox
 from functools import partial
 from datetime import *
@@ -19,7 +19,14 @@ from backend import *
 Window.size = (420, 810)
 from kivymd.uix.label import MDLabel
 from kivy.properties import StringProperty, NumericProperty
-from bot import *
+
+
+
+
+from asyncio import Task
+from setuptools import Command
+import azureservies
+import backend
 
 class Command(MDLabel):
     text = StringProperty()
@@ -95,12 +102,12 @@ class MainApp(MDApp):
         self.addjournalcard(locals()[str((datetime.now))])
 
     def addjournalcard(self, journal_entry):
-        if journal_entry.Task != None:
+        if  journal_entry != None:
             base = TwoLineAvatarIconListItem()
             base.text = str()
             base.on_release = partial(self.display_entry, journal_entry)
-            self.target.add_widget(base)
-            self.root.current = 'journal'    
+            #self.root.add_widget(base)
+            #self.root.current = 'journal'    
 
     def display_entry(self, journal_entry):
         popup = MDDialog(title = str(journal_entry.get_task())+": "+str(datetime.now()), text = journal_entry.get_note+"\n"+journal_entry.get_excuse(), auto_dismiss = True, overlay_color=(0.6, 0.3, 0.9, 1))
@@ -204,10 +211,10 @@ class MainApp(MDApp):
                         auto_dismiss = True, overlay_color=(0.6, 0.3, 0.9, 1))
         popup.open()   
    
-    def call_bot(self):
-        Task = self.User.GoalList[0].Tasks[0]
-        TaskStatus(Task)
-        journal = self.User.GoalList[0].Journal[0]
+    def call_bot(self, *args):
+        #Task = self.User.GoalList[0].Tasks[0]
+        self.TaskStatus(Task)
+        journal = "self.User.GoalList[0].Journal[0]"
         self.addjournalcard(journal)
 
    #Determine if task should repeated on a day
@@ -250,7 +257,76 @@ class MainApp(MDApp):
     def sign_out(self):
         self.root.ids.firebase_login_screen.log_out()
         self.root.current = 'firebase_login_screen'              
+
+
+    def JournalNote(*args):
+        azureservies.TTS("What do you have to say about this task?")
+        Note = azureservies.STT()
+        return Note
+
+    def YN(string):
+        azureservies.TTS(string)
+        result = azureservies.YN()
+        return result
+
+    def TaskStatus(self, *args):
+        #Goal = Task.Goal
+        TaskName = "do a task?"
+        Prompt = "did you " + TaskName
+        self.root.ids.chats.add_widget(Response( 
+            text = Prompt,
+            size_hint_x= .50,
+            halign = "center",))
+        azureservies.TTS(Prompt)
+        JI = backend.JournalEntry
+        TaskStatus = azureservies.TSU()
         
+
+        if TaskStatus == "Task Completed":
+            azureservies.TTS("Would you like to save a note with this task?")
+            result = azureservies.YN()
+            if result == "yes":
+                Note = self.JournalNote()
+                JI  = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
+                #Goal.Journal.append(
+                #   JI
+                #)
+            else:
+                JI  = backend.JournalEntry(Task, TaskStatus)#new journal entry
+                #Goal.Journal.append(
+                # JI
+                #)
+
+        elif TaskStatus == "Working on Task":
+            azureservies.TTS("When will you be finished?")
+            Note = azureservies.STT()
+            JI = backend.JournalEntry(Task, TaskStatus, None)#new journal entry
+            #Goal.Journal.append(
+            #   JI
+            #)
+            #Undersatnd time
+            #Reschedule task for that time
+
+        elif TaskStatus == "Partially Completed":
+            Note = self.JournalNote()
+            JI = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
+            #Goal.Journal.append(
+            #   JI
+        # )
+        elif TaskStatus == "Did not complete":
+            azureservies.TTS("Why didn't you complete the task?")
+            Excuse = azureservies.NCU()
+            Note = self.JournalNote()
+            JI = backend.JournalEntry(Task, TaskStatus, Note, Excuse)#new journal entry
+            #Goal.Journal.append(
+                #JI
+        # )
+        elif TaskStatus == "None": 
+            Note = self.JournalNote()
+            JI = backend.JournalEntry(Task, TaskStatus, Note)#new journal entry
+        # Goal.Journal.append(
+            #    JI
+            #)
 
 MainApp().run()
 

@@ -820,6 +820,7 @@ ScreenManager:
             do_scroll_x: False
             do_scroll_y: True
             BoxLayout:
+                id: chats
                 orientation: 'vertical'
                 size: (root.width, root.height)
                 height: self.minimum_height
@@ -827,14 +828,7 @@ ScreenManager:
                 pso_hint: {'top': 10}
                 cols: 1
                 spacing: 5
-                Command: 
-                    text: "Hello"
-                    size_hint_x: .50
-                    halign: "center"
-                Response: 
-                    text: "Hello"
-                    size_hint_x: .50
-                    halign: "center"
+                
         MDIconButton:
             icon: 'arrow-left-thin'
             icon_color: 0,0,0,1

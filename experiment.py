@@ -4,7 +4,7 @@ import requests
 import json
 
 
-def PostJournal( Name, Status, Note, Excuse):
+def PostJournal( Name, Status, Note, Excuse, *args):
         Journal = {}
         Journal['Name'] = Name
         Journal['Status'] = Status
