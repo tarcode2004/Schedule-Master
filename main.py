@@ -11,12 +11,12 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDIconButton, MDFlatButton
 from kivymd.uix.list import OneLineRightIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.list import IconRightWidget
-from kivymd.uix.picker import MDTimePicker
+from kivymd.uix.pickers import MDTimePicker
 from kivymd.uix.selectioncontrol import MDCheckbox
 from functools import partial
 from datetime import datetime
 from backend import *
-Window.size = (300, 600)
+Window.size = (420, 720)
 
 from kivymd.uix.label import MDLabel
 from kivy.properties import StringProperty, NumericProperty
