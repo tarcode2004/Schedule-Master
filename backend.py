@@ -70,7 +70,7 @@ class Journal_Entry():
         self.Content += val
     def set_time(self, val):
         self.Content = val
-
+class Task():
     def __init__(self, name, description, goal, date, days, frequency, time):
         self.ID = uuid.uuid4()
         self.Name = name
