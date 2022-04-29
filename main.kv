@@ -8,7 +8,7 @@ ScreenManager:
         debug: True
         remember_user: True
         require_email_verification: True
-        web_api_key: "AIzaSyCVAZHLsIkT62IyXIQ0p6JMDioZ5-NPVrQ" # This should be YOUR web_api_key
+        web_api_key: "AIzaSyCz6rE11KcKXUeLWAJGkmDRgPuH0OfCXks" # This should be YOUR web_api_key
         background: "background.jpg"
         on_login_success:
             if self.login_state == 'in': print("User has logged in. Unique identifier is ", self.localId)
@@ -31,7 +31,7 @@ ScreenManager:
                 text: "Log out"
                 on_release:
                     app.sign_out()
-
+#Home Screen
     MDScreen:
         name: "Home"
         #This component is the menu at the bottom of the screen
@@ -54,7 +54,6 @@ ScreenManager:
                         pos_hint: {"center_x":0.5}
                         MDLabel:
                             text: "Let's Set Some Goals!"
-                            font_name: 'Calibri'
                             theme_text_color: 'Custom'
                             text_color: 0.6, 0.3, 0.9, 1
                             font_size: '25sp'
@@ -70,7 +69,7 @@ ScreenManager:
                         halign: 'left'
                         md_bg_color: 0.9,0.9, 0.95, 1
                         size_hint: None, None
-                        size: "270dp", "100dp"
+                        size: "270dp", "90dp"
                         MDRectangleFlatButton:
                             text: "Goals"
                             font_style: "H5"
@@ -97,7 +96,7 @@ ScreenManager:
                         halign: 'left'
                         md_bg_color: 0.9,0.9, 0.95, 1
                         size_hint: None, None
-                        size: "270dp", "100dp"
+                        size: "270dp", "90dp"
                         MDRectangleFlatButton:
                             text: "Tasks"
                             font_style: "H5"
@@ -107,7 +106,7 @@ ScreenManager:
                             line_color: 0.9,0.9,0.9,0.9
                             md_bg_color: 0.9,0.9, 0.95, 1
                             text_color: 0.6, 0.3, 0.9, 1
-                            on_release: root.current= 'tasks'
+                            on_release: root.current= "Tasks"
                         MDIconButton:
                             icon: 'calendar-check'
                             icon_color: 0.6, 0.3, 0.9, 0.9
@@ -116,14 +115,14 @@ ScreenManager:
                             pos_hint: { 'center_y': 0.5}
                             valign: 'center'
                             halign: "left"
-                            on_release: root.current = 'tasks'
+                            on_release: root.current = "Tasks"
 
                     MDCard:
                         orientation: 'horizontal'
                         halign: 'left'
                         md_bg_color: 0.9,0.9, 0.95, 1
                         size_hint: None, None
-                        size: "270dp", "100dp"
+                        size: "270dp", "90dp"
                         MDRectangleFlatButton:
                             text: "Online Chat"
                             size_hint: (0.9, 0.05)
@@ -151,7 +150,7 @@ ScreenManager:
                         halign: 'left'
                         md_bg_color: 0.9,0.9, 0.95, 1
                         size_hint: None, None
-                        size: "270dp", "100dp"
+                        size: "270dp", "90dp"
                         MDRectangleFlatButton:
                             text: "Journal"
                             size_hint: (0.9, 0.05)
@@ -172,6 +171,11 @@ ScreenManager:
                             valign: 'center'
                             halign: "left"
                             on_release: root.current = 'journal'
+                    MDIconButton:
+                        icon: 'account'
+                        on_release: 
+                        md_bg_color: 0.6, 0.3, 0.9, 0.9
+                        pos_hint: {'center_x': 0.5}
 #NAVIGATION BAR
             MDBottomNavigationItem:
                 name: 'screen 1'
@@ -270,7 +274,6 @@ ScreenManager:
             md_bg_color: 0.9,0.9, 0.95, 1
             MDLabel:
                 text: "Goals"
-                font_name: 'Calibri'
                 font_size: 30
                 theme_text_color: "Custom"
                 text_color: (0.6, 0.3, 0.9, 1)            
@@ -306,7 +309,7 @@ ScreenManager:
 
 #Tasks Screen
     Screen:
-        name: 'tasks'
+        name: "Tasks"
         MDIconButton:
             icon: 'arrow-left-thin'
             icon_color: 0,0,0,1
@@ -321,7 +324,6 @@ ScreenManager:
             md_bg_color: 0.9,0.9, 0.95, 1
             MDLabel:
                 text: "Tasks"
-                font_name: 'Calibri'
                 font_size: 30
                 theme_text_color: "Custom"
                 text_color: (0.6, 0.3, 0.9, 1)            
@@ -380,7 +382,6 @@ ScreenManager:
             md_bg_color: 0.9,0.9, 0.95, 1
             MDLabel:
                 text: "New Goal"
-                font_name: 'Calibri'
                 font_size: 30
                 theme_text_color: "Custom"
                 text_color: (0.6, 0.3, 0.9, 1)
@@ -417,13 +418,9 @@ ScreenManager:
                 color_mode: 'custom'
                 line_color_focus: (0.6, 0.3, 0.9, 1)
                 pos_hint:{'center_y': 0.5}            
-            #MDRectangleFlatButton:
-            #    text: "Set Date"
-            #    size_hint: 1, None
-            #    on_release: app.goal_cal()
             MDTextField:
                 id: deadline
-                hint_text: "Target Date"
+                hint_text: "mm/dd/yyyy"
                 hint_text_mode: "persistent"
                 mode: 'fill'
             
@@ -432,14 +429,245 @@ ScreenManager:
                 hint_text: "Tasks"
                 hint_text_mode: "persistent"
                 mode: 'fill'
-            
-               
+                           
         MDFloatingActionButton:
             icon: 'check'
             icon_color: 0,0,0,1
             md_bg_color: 1,0.9,0,1
             pos_hint: {'center_x':0.8, 'center_y':0.1}
-            on_release: app.addcard(goalpanel, Goal_Title, Motiv, deadline, task_list, taskmdlist)
+            on_release: app.newgoalobject(Goal_Title, Motiv, task_list, deadline)
+
+#Edit Task Screen
+    Screen:
+        name: 'edit_task'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = "Tasks"
+        MDCard:
+            size_hint: None, None
+            size: "260dp", "80dp"
+            pos_hint: {"center_x":0.5, 'center_y': 0.8}
+            padding: 30
+            md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                text: "Edit Task"
+                font_size: 30
+                theme_text_color: "Custom"
+                text_color: (0.6, 0.3, 0.9, 1)
+            IconLeftWidget:
+                icon:'wrench'
+                icon_size: 75
+                theme_icon_color: "Custom"
+                icon_color: (0.6, 0.3, 0.9, 1)
+
+        MDCard:
+            id: edit_task_panel
+            orientation: 'vertical'
+            size_hint: None, None
+            padding: 10
+            spacing: 20
+            size: "280dp", "350dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.45}
+            md_bg_color: 0.9,0.9, 0.95, 1
+            valign: 'center'
+            MDLabel:
+                text: "Title"
+                id: edit_Task_Title
+                pos_hint:{'center_y': 1}
+                theme_text_color: 'Custom'
+                text_color: 0.6, 0.3, 0.9, 1                
+                md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                id: edit_task_goal
+                text: ""
+                text_color: 0.6, 0.3, 0.9, 1
+                theme_text_color: 'Custom'
+                md_bg_color: 0.9,0.9, 0.95, 1
+            MDTextField:
+                hint_text: "Description"
+                multiline: True
+                max_text_length: 52
+                id: edit_Task_Description
+                hint_text_mode: "persistent"
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)  
+             
+            MDTextField:
+                id: edit_time
+                hint_text: "Time (HH:MM)"
+                hint_text_mode: "persistent"
+                mode: 'fill'
+            MDBoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                MDCard:
+                    md_bg_color: 0.9,0.9, 0.95, 1
+                    orientation: 'vertical'
+                    MDLabel:
+                        text: "Daily"
+                        theme_text_color: "Custom"
+                        text_color: (0.6, 0.3, 0.9, 1) 
+                        font_size: 15
+                    MDCheckbox:
+                        id: edit_repeat_daily
+                        group: 'group2'
+                        on_active: app.days_task(edit_frequency_options, 1)
+                MDCard:
+                    md_bg_color: 0.9,0.9, 0.95, 1
+                    orientation: 'vertical'
+                    MDLabel:
+                        text: "Weekly"
+                        theme_text_color: "Custom"
+                        text_color: (0.6, 0.3, 0.9, 1) 
+                        font_size: 15
+                    MDCheckbox:
+                        group: 'group2'
+                        id: edit_repeat_weekly
+                        on_active: app.days_task(edit_frequency_options, 2)
+                MDCard:
+                    orientation: 'vertical'
+                    md_bg_color: 0.9,0.9, 0.95, 1
+                    MDLabel: 
+                        text: "Monthly"
+                        font_size: 15
+                        theme_text_color: "Custom"
+                        text_color: (0.6, 0.3, 0.9, 1) 
+                    MDCheckbox:
+                        id: edit_repeat_monthly 
+                        group: 'group2'
+                        on_active: app.days_task(edit_frequency_options, 3)
+
+            MDCard:
+                id: edit_frequency_options
+                md_bg_color: 0.9,0.9, 0.95, 1
+
+        MDFloatingActionButton:
+            icon: 'check'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,0.9,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            on_release: app.edit_task(edit_Task_Title, edit_Task_Title, edit_Task_Description,None, None, edit_time)
+            #edit_task(self, task_ref, name, description, goal, frequency, timex):
+#New Task
+    Screen:
+        name: 'new_task'
+        MDIconButton:
+            icon: 'arrow-left-thin'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,1,1,1
+            pos_hint:{'center_x':0.1, 'center_y':0.95}
+            on_release: root.current = 'Home'
+        MDCard:
+            size_hint: None, None
+            size: "260dp", "80dp"
+            pos_hint: {"center_x":0.5, 'center_y': 0.8}
+            padding: 30
+            md_bg_color: 0.9,0.9, 0.95, 1
+            MDLabel:
+                text: "New Task"
+                font_size: 30
+                theme_text_color: "Custom"
+                text_color: (0.6, 0.3, 0.9, 1)
+            IconLeftWidget:
+                icon:'calendar'
+                icon_size: 75
+                theme_icon_color: "Custom"
+                icon_color: (0.6, 0.3, 0.9, 1)
+
+        MDCard:
+            id: new_task_panel
+            orientation: 'vertical'
+            size_hint: None, None
+            padding: 10
+            spacing: 20
+            size: "280dp", "350dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.45}
+            md_bg_color: 0.9,0.9, 0.95, 1
+            valign: 'center'
+            MDTextField:
+                hint_text: "Title"
+                id: Task_Title
+                hint_text_mode: "persistent"
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)
+                pos_hint:{'center_y': 1}
+            MDTextField:
+                hint_text: "Decription"
+                multiline: True
+                max_text_length: 52
+                id: Task_Description
+                hint_text_mode: "persistent"
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)  
+            MDTextField:
+                id: task_goal
+                multiline: False
+                hint_text: "Goal Title"
+                hint_text_mode: "persistent"
+                mode: 'fill'
+                color_mode: 'custom'
+                line_color_focus: (0.6, 0.3, 0.9, 1)         
+            MDTextField:
+                id: Task_time
+                hint_text: "Time (HH:MM)"
+                hint_text_mode: "persistent"
+                mode: 'fill'
+            MDBoxLayout:
+                orientation: 'horizontal'
+                spacing: 10
+                MDCard:
+                    md_bg_color: 0.9,0.9, 0.95, 1
+                    orientation: 'vertical'
+                    MDLabel:
+                        text: "Daily"
+                        theme_text_color: "Custom"
+                        text_color: (0.6, 0.3, 0.9, 1) 
+                        font_size: 15
+                    MDCheckbox:
+                        id: repeat_daily
+                        group: 'group'
+                        on_active: app.days_task(frequency_options, 1)
+                MDCard:
+                    md_bg_color: 0.9,0.9, 0.95, 1
+                    orientation: 'vertical'
+                    MDLabel:
+                        text: "Weekly"
+                        theme_text_color: "Custom"
+                        text_color: (0.6, 0.3, 0.9, 1) 
+                        font_size: 15
+                    MDCheckbox:
+                        group: 'group'
+                        id: repeat_weekly
+                        on_active: app.days_task(frequency_options, 2)
+                MDCard:
+                    orientation: 'vertical'
+                    md_bg_color: 0.9,0.9, 0.95, 1
+                    MDLabel: 
+                        text: "Monthly"
+                        font_size: 15
+                        theme_text_color: "Custom"
+                        text_color: (0.6, 0.3, 0.9, 1) 
+                    MDCheckbox:
+                        id: repeat_monthly 
+                        group: 'group'
+                        on_active: app.days_task(frequency_options, 3)
+            MDCard:
+                id: frequency_options
+                md_bg_color: 0.9,0.9, 0.95, 1
+        MDFloatingActionButton:
+            icon: 'check'
+            icon_color: 0,0,0,1
+            md_bg_color: 1,0.9,0,1
+            pos_hint: {'center_x':0.8, 'center_y':0.1}
+            on_release: app.newtask(Task_Title, Task_Description, task_goal, None, Task_time)
+            #newtask(self, title, description, goal, frequency, timex)
+
 
 #Notification Screen
     Screen:
@@ -467,7 +695,6 @@ ScreenManager:
             md_bg_color: 0.9,0.9, 0.95, 1
             MDLabel:
                 text: "Journal"
-                font_name: 'Calibri'
                 font_size: 30
                 theme_text_color: "Custom"
                 text_color: (0.6, 0.3, 0.9, 1)            
@@ -478,8 +705,8 @@ ScreenManager:
                 icon_color: (0.6, 0.3, 0.9, 1)
         MDCard:
             size_hint: None, None
-            size: "280dp", "250dp"
-            pos_hint: {'center_x':0.5, 'center_y': 0.5}
+            size: "280dp", "320dp"
+            pos_hint: {'center_x':0.5, 'center_y': 0.45}
             md_bg_color: 0.9,0.9, 0.95, 1
             ScrollView:
                 size_hint: 1,1
@@ -490,13 +717,6 @@ ScreenManager:
                     orientation: 'lr-tb'
                     padding: 10
                     spacing: 20
-        MDIconButton:
-            icon: 'plus'
-            icon_color: 0,0,0,1
-            md_bg_color: 1,0.9,0,1
-            pos_hint:{'center_x':0.85, 'center_y':0.1}
-            on_release: root.current = 'new_entry'
-
 #New Journal Entry
     Screen:
         name: 'new_entry'
@@ -514,7 +734,6 @@ ScreenManager:
             md_bg_color: 0.9,0.9, 0.95, 1
             MDLabel:
                 text: "New Journal Entry"
-                font_name: 'Calibri'
                 font_size: 30
                 theme_text_color: "Custom"
                 text_color: (0.6, 0.3, 0.9, 1)            
